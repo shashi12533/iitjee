@@ -9,14 +9,17 @@ require '../functions.php';
  */
 
 $number = $argv[1];//11-17
+$order = isset($argv[2]) ? $argv[2] : 'ASC';
+//$mod = isset($argv[3])? 1 : 0;//default is odd
 /*
  * check the status of validatestatus.php
  */
 $iit = $number%10;
 if($config['validation_status'][$iit] == 'down'){
-	die("The site's validation check is down");
+	die("The site's validation check is down\n");
 }
-$results = R::getAll("SELECT form_no from candidate WHERE form_no LIKE 'C$number%' AND category IS NULL");
+
+$results = R::getAll("SELECT form_no from candidate WHERE form_no LIKE 'C$number%' AND category IS NULL ORDER BY id $order");
 foreach($results as $data){
 	$form_no = $data['form_no'];
 	$site_root = $config['jee_sites_root'][$iit];
