@@ -16,7 +16,8 @@ foreach($results as $data){
   	$reg_no = $data['reg_no'];
 	$site_root = $config['jee_sites_root'][$iit];
   	$date = explode('/',$data['date_of_birth']);
-  	echo $form_no."\n";
+    echo $form_no."\n";
+    if(!$date[0]) continue;
     $cookie = trim(`./get_cookie.sh $reg_no $form_no $date[0] $date[1] $date[2] $site_root`);
   	//Now we have authenticated ourselves
     //PAPER 1
