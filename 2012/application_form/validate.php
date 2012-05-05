@@ -23,10 +23,17 @@ $results = R::getAll("SELECT form_no from candidate WHERE form_no LIKE 'C$number
 foreach($results as $data){
 	$form_no = $data['form_no'];
 	$site_root = $config['jee_sites_root'][$iit];
+  echo $site_root."\n";
 	$request = new HTTP_Request2($site_root.'validatestatus.php');
 	$request->setMethod(HTTP_Request2::METHOD_POST)
-			->addPostParameter('appno', $form_no);
+      ->addPostParameter('appno', $form_no);
 	$body = explode("\n",$request->send()->getBody());
+	if(count($body)<211){
+		//print_r($body);
+		echo "Waiting for 5 seconds ".count($body);;
+		sleep(5);
+		continue;
+	}
 	$candidate = R::findOne('candidate','form_no = ?',array($form_no));//find the corresponding id
 	$candidate = R::load('candidate',$candidate->id);//create the bean
 	$candidate->category = cut_str($body[69],">","<");
