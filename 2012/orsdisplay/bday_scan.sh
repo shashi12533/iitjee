@@ -1,7 +1,8 @@
 #!/bin/bash
-appno=$1
-formno=$2
-year=$3
+year=$1
+appno=$2
+formno=$3
+#Get site_root in $4 as well
 for month in {1..12}
 do
     echo $month/$year - $appno - $formno
