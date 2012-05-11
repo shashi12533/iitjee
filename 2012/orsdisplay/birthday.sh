@@ -1,21 +1,14 @@
 #!/bin/bash
-appno=$1
-formno=$2
-year=$3
-for month in {1..12}
+for year in 94 95 93
 do
-    echo $month/$year - $appno - $formno
-    for day in {1..31}
-    do
-        month_f=`printf "%02d" $month`
-        day_f=`printf "%02d" $day`
-        #echo $day_f/$month_f/$year
-        curl -s -X POST -D- -d"appno=$appno&formno=$formno&DateOfBirth_Day=$day_f&DateOfBirth_Month=$month_f&DateOfBirth_Year=$year&submit=Submit"  "$4orsdisplay/index.php" -o/dev/null | grep selectors.php
-        ret="$?"
-        if [[ $ret -eq "0" ]]; then
-            echo "$day_f/$month_f/$year"
-            exit
-        fi
-    done
+	for month in {1..12}
+	do
+	    for day in {1..31}
+	    do
+	    	#echo $day/$month/$year
+            month_f=`printf "%02d" $month`
+            day_f=`printf "%02d" $day`
+            echo "INSERT INTO dates VALUES('$day_f/$month_f/$year');"
+	    done
+	done
 done
-echo "NOT_FOUND"
