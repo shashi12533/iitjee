@@ -5,7 +5,7 @@ while(true){
 	$process = "\033[31m#".$argv[1]."\033[30m";
 	echo "[$process] Getting New batch of 100\n";
 	$update_query = '';
-	$data = R::find('queries','1 ORDER BY RAND() LIMIT 0,10');
+	$data = R::find('queries','1 ORDER BY RAND() LIMIT 0,100');
 	$count=1;
 	foreach($data as $query){
 		$iit = substr($query['form_no'],2,1);
