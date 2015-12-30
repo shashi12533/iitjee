@@ -22,6 +22,7 @@ foreach($file as $line){
 	print_r($form);
 	if(check($form))
 		echo "YES\n";
+		//this is fake
 }
 
 
